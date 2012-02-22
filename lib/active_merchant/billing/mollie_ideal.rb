@@ -45,6 +45,8 @@ module ActiveMerchant
         url   = URL + "?a=#{action}&#{parameters.collect { |k,v| "#{k}=#{v}" }.join("&") }"
         uri   = URI.parse(url)
         http  = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         http.get(uri.request_uri).body
       end
       
